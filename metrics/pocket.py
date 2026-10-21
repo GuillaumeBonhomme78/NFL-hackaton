@@ -21,6 +21,7 @@ from data import FPS, KEYS, OUT, load_tables, load_tracking, play_windows
 BREACH_RADIUS = 2.0           # yards, choisi par validate_radius() contre les labels PFF
 GAUGE_FAR, GAUGE_NEAR = 6.0, 1.0  # jauge 0 à 6 yd et plus, 1 à 1 yd et moins
 MIN_RUSH_SNAPS, MIN_BLOCK_SNAPS = 150, 250
+KM_GRID = np.round(np.arange(0, 6.01, 0.1), 1)  # instants (s) où l'on évalue la survie de la poche
 
 
 def rusher_distances(trk, pff, win):
@@ -80,7 +81,7 @@ def kaplan_meier(durations, events, grid):
 
 
 def km_summary(group):
-    grid = np.round(np.arange(0, 6.01, 0.1), 1)
+    grid = KM_GRID
     s = kaplan_meier(group.pocket_time.values, group.breached.values, grid)
     below = grid[s < 0.5]
     return pd.Series({
