@@ -1,0 +1,7 @@
+data_nfl/
+data/
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+*.gif
+!docs/*.gif
